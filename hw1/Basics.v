@@ -139,8 +139,14 @@ Definition orb' (b1:bool) (b2:bool) : bool :=
     explain this phenomenon later in the chapter. *)
 
 Definition nandb (b1:bool) (b2:bool) : bool
-  := if b1 then (negb b2)
-     else true.
+  := match b1 with
+     | true => match b2 with
+                | true => false
+                | false => true
+                end
+     | false => true
+     end.
+
 
 Example test_nandb1:               (nandb true false) = true.
 Proof. simpl. reflexivity. Qed.
